@@ -1,0 +1,44 @@
+body {
+    background-color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    min-width: 400px;
+}
+
+input {
+    padding: 10px 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #415793;
+    margin-bottom: 4px;
+}
+
+button {
+    background: #415793;
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid #415793;
+    font-weight: bold;
+}
+
+#delete-btn {
+    background: white;
+    color: #415793;
+    padding: 10px 20px;
+    border: 1px solid #415793;
+    font-weight: bold;
+}
+
+li a {
+    color: #415793;
+}
+
+ul {
+    padding-left: 0px;
+    margin-top: 20px;
+}
+
+li {
+    list-style: none;
+    margin-top: 5px;
+}
