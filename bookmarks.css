@@ -42,3 +42,8 @@ li {
     list-style: none;
     margin-top: 5px;
 }
+
+a.remove {
+    text-decoration: none;
+    margin-left: 2px;
+}

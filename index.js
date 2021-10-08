@@ -14,11 +14,12 @@ if (bookmarksFromLocalStorage) {
 }
 
 inputBtn.addEventListener("click", function() {
-    bookmarks.push(inputEl.value)
-    inputEl.value = ""
-    localStorage.setItem( "myBookmarks", JSON.stringify( bookmarks ) )
-    inputEl.focus()
-    render(bookmarks)
+    if (inputEl.value) {
+        bookmarks.push(inputEl.value)
+        inputEl.value = ""
+        saveToLocalStorage("myBookmarks", bookmarks)
+        inputEl.focus()
+    }
 })
 
 deleteBtn.addEventListener("click", function() {
@@ -30,21 +31,34 @@ deleteBtn.addEventListener("click", function() {
 saveTabBtn.addEventListener("click", function() {
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
         bookmarks.push(tabs[0].url)
-        localStorage.setItem( "myBookmarks", JSON.stringify( bookmarks ) )
-        render(bookmarks)
+        saveToLocalStorage("myBookmarks", bookmarks)
     })
 })
+
+function refresh () {
+    document.querySelectorAll('.remove').forEach(item => {
+        item.addEventListener('click', event => {
+           bookmarks.splice(item.id, 1);
+           saveToLocalStorage("myBookmarks", bookmarks)
+        })
+     })
+}
 
 function render (items) {
     let listItems = ""
     for (let i = 0; i < items.length; i++) {
         listItems += `
         <li>
-            <a target='_blank' href='${items[i]}'>
-                ${items[i]}
-            </a>
+            <a target='_blank' href='https://${items[i]}'>${items[i]}</a>
+            <a title="Remove" href="" class="remove"" id='${i}'> [x] </a>
         </li>
         `
     }
     ulEl.innerHTML = listItems
+    refresh ()
+}
+
+function saveToLocalStorage (objectName, object) {
+    localStorage.setItem( objectName, JSON.stringify( object ) )
+    render(bookmarks)
 }
