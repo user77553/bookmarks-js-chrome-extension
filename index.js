@@ -49,7 +49,7 @@ function render (items) {
     for (let i = 0; i < items.length; i++) {
         listItems += `
         <li>
-            <a target='_blank' href='https://${items[i]}'>${items[i]}</a>
+            <a target='_blank' href='${items[i]}'>${items[i]}</a>
             <a title="Remove" href="" class="remove"" id='${i}'> [x] </a>
         </li>
         `
