@@ -7,6 +7,7 @@ const ulEl = document.getElementById("ul-el")
 const inputBtn = document.getElementById("input-btn")
 const deleteBtn = document.getElementById("delete-btn")
 const saveTabBtn = document.getElementById("tab-btn")
+const exportTabBtn = document.getElementById("export-btn")
 
 if (bookmarksFromLocalStorage) {
     bookmarks = bookmarksFromLocalStorage
@@ -62,3 +63,16 @@ function saveToLocalStorage (objectName, object) {
     localStorage.setItem( objectName, JSON.stringify( object ) )
     render(bookmarks)
 }
+
+exportTabBtn.addEventListener("click", () => {
+        const str = JSON.stringify( bookmarks )
+        const blob = new Blob( [ str ], {
+          type: 'application/json'
+        })
+
+        const element = document.createElement("a")
+        element.href = URL.createObjectURL( blob )
+        element.download = "bookmarks.json"
+        document.body.appendChild( element )
+        element.click()
+})
