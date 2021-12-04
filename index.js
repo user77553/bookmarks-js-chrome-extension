@@ -9,6 +9,7 @@ const inputBtn = document.getElementById("input-btn")
 const deleteBtn = document.getElementById("delete-btn")
 const saveTabBtn = document.getElementById("tab-btn")
 const exportTabBtn = document.getElementById("export-btn")
+const seperateChar = "||"
 
 if (bookmarksFromLocalStorage) {
     bookmarks = bookmarksFromLocalStorage
@@ -17,7 +18,7 @@ if (bookmarksFromLocalStorage) {
 
 inputBtn.addEventListener("click", function() {
     if (labelEl.value && inputEl.value) {
-        bookmarks.push( labelEl.value + "|" + inputEl.value )
+        bookmarks.push( labelEl.value + seperateChar + inputEl.value )
         labelEl.value = ""
         inputEl.value = ""
         saveToLocalStorage("myBookmarks", bookmarks)
@@ -36,7 +37,7 @@ deleteBtn.addEventListener("click", function() {
 
 saveTabBtn.addEventListener("click", function() {
     chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-        bookmarks.push( tabs[0].title + "|" + tabs[0].url )
+        bookmarks.push( tabs[0].title + seperateChar + tabs[0].url )
         saveToLocalStorage("myBookmarks", bookmarks)
     })
 })
@@ -53,7 +54,7 @@ function refresh () {
 function render (items) {
     let listItems = ""
     for (let i = 0; i < items.length; i++) {
-        const item = items[i].split("|")
+        const item = items[i].split(seperateChar)
         listItems += `
         <li>
             <a target='_blank' href='${ item[1] }'>${ item[0] }</a>
